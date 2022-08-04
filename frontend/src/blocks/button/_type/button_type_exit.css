@@ -1,0 +1,17 @@
+.button_type_exit {
+  margin: 0 0 0 24px;
+  padding: 0;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 400;
+  color: #A9A9A9;
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  transition: opacity .5s ease;
+  margin-right: 30px;
+}
+
+.button_type_exit:hover {
+  opacity: 0.6;
+}

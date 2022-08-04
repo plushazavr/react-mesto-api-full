@@ -1,0 +1,30 @@
+.page {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Inter', 'Helvetica', sans-serif;
+  background-color: black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+}
+
+@media screen and (max-width: 568px) {
+  .page {
+    transform: translateY(-143px);
+    transition: all 0.4s ease-in-out;
+  }
+
+  .page_type_mobile__hidden {
+    transform: translateY(-143px);
+  }
+
+  .page_type_mobile_opened {
+    transform: translateY(0);
+  }
+}

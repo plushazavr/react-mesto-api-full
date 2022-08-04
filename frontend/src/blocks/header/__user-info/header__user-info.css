@@ -1,0 +1,17 @@
+.header__user-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1024px) {
+  .header__user-info {
+    align-items: flex-end;
+    margin-left: auto;
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .header__user-info {
+    display: none;
+  }
+}
