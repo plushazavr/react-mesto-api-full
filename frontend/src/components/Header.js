@@ -21,13 +21,13 @@ function Header({ userEmail, onSignOut, onMobileMenuClick }) {
         <img alt="Логотип" className="header__logo" src={logoPath}/>
       </a>
       <Switch>
-        <Route path='/sign-in'>
+        <Route path='/signin'>
             <Link className="header__link"
                   to="/sign-up">
                 Регистрация
             </Link>
         </Route>
-        <Route path='/sign-up'>
+        <Route path='/signup'>
             <Link className="header__link"
                   to="/sign-in">
                 Войти

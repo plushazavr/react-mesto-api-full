@@ -147,7 +147,7 @@ function App() {
     auth.register({email, password})
       .then(() => {
         setIsSuccess(true);        
-        history.push('/sign-in');
+        history.push('/signin');
       })
       .catch((err) => {
         setIsSuccess(false);
@@ -179,7 +179,7 @@ function App() {
   const handleSignOut = () => {
     setLoggedIn(false);
     localStorage.removeItem('jwt');
-    history.push("/sign-in");
+    history.push("/signin");
     setIsMobileMenuOpen(false);
   }
 
@@ -226,18 +226,18 @@ function App() {
                 onCardLike={handleCardLike}
                 onCardDelete={handleCardDelete}
               />
-              <Route path="/sign-up">
+              <Route path="/signup">
                 <Register
                   onRegister={handleRegister}
                 />
               </Route>
-              <Route path="/sign-in">
+              <Route path="/signin">
                 <Login
                   onLogin={handleLogin}
                 />
               </Route>
               <Route exact path="*">
-                {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
+                {loggedIn ? <Redirect to="/"/> : <Redirect to="/signin"/>}
               </Route>
           </Switch>
 

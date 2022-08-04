@@ -53,7 +53,7 @@ const Register = ({onRegister}) => {
         </button>
         <p className="login__text">
             Уже зарегистрированы?
-            <a className="form__link" href="/react-mesto-auth/sign-in"> Войти</a>
+            <a className="form__link" href="/react-mesto-auth/signin"> Войти</a>
         </p>
       </form>
     </div>
