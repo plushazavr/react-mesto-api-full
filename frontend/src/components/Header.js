@@ -23,13 +23,13 @@ function Header({ userEmail, onSignOut, onMobileMenuClick }) {
       <Switch>
         <Route path='/signin'>
             <Link className="header__link"
-                  to="/sign-up">
+                  to="/signup">
                 Регистрация
             </Link>
         </Route>
         <Route path='/signup'>
             <Link className="header__link"
-                  to="/sign-in">
+                  to="/signin">
                 Войти
             </Link>
         </Route>

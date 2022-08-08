@@ -32,7 +32,7 @@
 
 .burger__button_active::before {
   transform: translateY(0px) rotate(45deg);
-  box-shadow: 0 0 #ffffff;
+  box-shadow: 0 0 #fff;
 }
 
 .burger__button_active::after {

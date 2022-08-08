@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.kazantseva.nomoredomains.sbs';
+export const BASE_URL = 'https://api.kazantseva.nomoredomains.sbs/';
 
 const checkResponse = (response) => {
     if (response.ok) {
@@ -40,6 +40,10 @@ export const checkToken = (token) => {
             'Authorization': `Bearer ${token}`
         },
     })
-    .then(checkResponse)
-    .then(response => response)
+    .then(response => {
+      if (response.status === 200) {
+          return response.json()
+      }
+  })
+  .then(response => response)
 }
