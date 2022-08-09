@@ -20,44 +20,56 @@ import BurgerMenu from './BurgerMenu';
 
 function App() {
 
-  useEffect(() => {
-    checkToken()
-  }, [])
-
-
+  // Стейты для popup (Принимает состояние - открыт-true/не открыт-false
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);    
-  const [cards, setCards] = useState([]);    
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+  // Стейт для карточки
+  const [cards, setCards] = useState([]);
+
+  // Стейт для выбранного фото
   const [selectedCard, setSelectedCard] = useState(null);
+
+  // Стейт для загрузки
+  
+
+  // Стейт, отвечающий за данные текущего пользователя
   const [currentUser, setCurrentUser] = useState({
-    name: 'TestUser',
-    about: 'Test',
-    avatar: 'Test avatar',
-  });    
-  const [loggedIn, setLoggedIn] = useState(false);    
+      name: 'TestUser',
+      about: 'Test',
+      avatar: 'Test avatar',
+  });
+
+  // Стейт для логина пользователя
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  // Стейт для аутентификации пользователя
   const [isSuccess, setIsSuccess] = useState(false);
-  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);   
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+
+  // Стейт для email пользователя
   const [userEmail, setUserEmail] = useState("");
-  const history = useHistory();
+
+  const history = useHistory()    
+  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const onMobileMenuClick = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-
   useEffect(() => {
     if (loggedIn) {
-      Promise.all([api.getUserInfo(), api.getInitialCards()])
-        .then(([userData, cardsData]) => {
-            setCurrentUser(userData);
-            setCards(cardsData);
-        })
-        .catch((err) => {
-            console.log(`Не удалось получить данные с сервера. ${err}`);
-        })
+        Promise.all([api.getUserInfo(), api.getInitialCards()])
+            .then(([userData, cardsData]) => {
+                setCurrentUser(userData);
+                setCards(cardsData);
+            })
+            .catch((err) => {
+                console.log(`Не удалось получить данные с сервера. ${err}`);
+            })            
     }
-  }, [loggedIn]);
+}, [loggedIn]);
 
   function handleUpdateUser(data) {
     api.setUserInfo(data)
@@ -198,6 +210,10 @@ function App() {
         })
     }
   }
+
+  useEffect(() => {
+    checkToken()
+}, [])
 
   return (
     
