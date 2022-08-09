@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-const { isEmail, isURL } = require('validator');
+const { isEmail } = require('validator');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -39,12 +39,7 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Поле пароль должно быть заполнено'],
     select: false,
   },
-  },
-  { versionKey: false });
-
-
-
-
+}, { versionKey: false });
 
 // eslint-disable-next-line func-names
 userSchema.statics.findUserByCredentials = function (email, password) {
