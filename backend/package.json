@@ -8,17 +8,13 @@
     "dev": "nodemon app.js",
     "eslint": "npx eslint ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Zyoma689/express-mesto.git"
-  },
+
   "keywords": [],
-  "author": "Artem Ivanov",
+
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Zyoma689/express-mesto/issues"
-  },
-  "homepage": "https://github.com/Zyoma689/express-mesto#readme",
+
+
+
   "devDependencies": {
     "eslint": "^7.22.0",
     "eslint-config-airbnb-base": "^14.2.1",
