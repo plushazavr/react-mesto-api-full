@@ -3,8 +3,12 @@ const allowedCors = [
   'http://kazantseva.nomoredomains.sbs',
   'https://api.kazantseva.nomoredomains.sbs',
   'http://api.kazantseva.nomoredomains.sbs',
+  'https://www.api.kazantseva.nomoredomains.sbs',
+  'http://www.api.kazantseva.nomoredomains.sbs',
   'http://localhost:3000',
   'https://localhost:3000',
+  'http://localhost:3001',
+  'https://localhost:3001',
 ];
 
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
