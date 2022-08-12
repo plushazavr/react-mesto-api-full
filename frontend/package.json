@@ -1,20 +1,18 @@
 {
-  "name": "mesto-react",
+  "name": "react-mesto-api-full",
   "version": "0.1.0",
-  "description": "Проект представляет собой сервис Mesto: интерактивную страницу, куда можно добавлять фотографии, удалять их и ставить лайки.",
   "private": true,
-  "homepage": "http://localhost:3000",
+  "homepage": "https://kazantseva.nomoredomains.sbs/",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.6.3",
-    "chokidar": "^3.5.3",
-    "dotenv": "^8.2.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.2",
-    "web-vitals": "^1.1.0"
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-hook-form": "^7.30.0",
+    "react-router-dom": "^5.3.2",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -22,8 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./build/* kazantseva@62.84.126.26:/home/kazantseva/react-mesto-api-full/build"
-  
+    "deploy": "npm run build && scp -r ./build/* kazantseva@62.84.126.26:/home/kazantseva/react-mesto-api-full/frontend"
   },
   "eslintConfig": {
     "extends": [
@@ -44,6 +41,6 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.1.0"
+    "gh-pages": "^4.0.0"
   }
 }

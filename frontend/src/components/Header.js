@@ -1,37 +1,58 @@
-import React from 'react';
-import logo from "../images/logo.svg";
-import { Route, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react'
+import logoPath from "../images/logo.svg";
+import {Link, Route, useLocation, Switch} from "react-router-dom";
 
-export default function Header(props) {
-    return (
-        <header className="header">
-            <img className="header__logo" src={logo} alt="Лого Mesto" />
-            {
-                props.loggedIn && (
-                    <Route exact path="/">
-                        <div className="header__user-info">
-                            <p className="header__email">{props.email}</p>
-                            <Link
-                                className="button_type_exit"
-                                onClick={props.onLogout}
-                                to="/signin">Выйти
-                            </Link>
-                        </div>
-                    </Route>
-                )
-            }
-            <Route path="/signin">
-                <Link
-                    className="header__link"
-                    to="/signup">Регистрация
-                </Link>
-            </Route>
-            <Route path="/signup">
-                <Link
-                    className="header__link"
-                    to="/signin">Войти
-                </Link>
-            </Route>
-        </header>
-    );
+function Header({ userEmail, onSignOut, onMobileMenuClick }) {
+  const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
+
+  const handleMobileMenuClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+    onMobileMenuClick();
+  };
+
+  return (
+    <header className="header">
+      <a href="#">
+        <img alt="Логотип" className="header__logo" src={logoPath}/>
+      </a>
+      <Switch>
+        <Route path='/signin'>
+            <Link className="header__link"
+                  to="/signup">
+                Регистрация
+            </Link>
+        </Route>
+        <Route path='/signup'>
+            <Link className="header__link"
+                  to="/signin">
+                Войти
+            </Link>
+        </Route>
+        <Route path='/'>
+          <div className="header__user-info">
+              <p className="header__email">{userEmail}</p>
+              <button onClick={onSignOut} className="button_type_exit" type="button">
+                  Выйти
+              </button>
+          </div>
+          <nav className="burger">
+            <button
+              onClick={handleMobileMenuClick}
+              className={`button burger__button ${
+                isMenuOpen && 'burger__button_active'
+              }`}>            
+            </button>
+          </nav>
+        </Route>
+      </Switch>
+      
+    </header>
+  );
 }
+
+export default Header;

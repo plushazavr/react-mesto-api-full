@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-export default function PopupWithForm(props) {
+function PopupWithForm(props) {
   return (
     <div className={`popup popup_type_${props.name} ${props.isOpen && 'popup_opened'}`}>
       <div className="popup__container">
@@ -10,7 +10,7 @@ export default function PopupWithForm(props) {
                 aria-label="Закрыть окно">
         </button>
         <form className="popup__form"
-              name={props.name}
+              name={`${props.name}__form`}
               onSubmit={props.onSubmit}
         >
         <h2 className="popup__title">{props.title}</h2>
@@ -23,3 +23,5 @@ export default function PopupWithForm(props) {
     </div>
   );
 }
+
+export default PopupWithForm;
