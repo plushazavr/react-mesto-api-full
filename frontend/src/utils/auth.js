@@ -1,6 +1,6 @@
 export const BASE_URL = 'https://api.kazantseva.nomoredomains.sbs';
 //const BASE_URL = 'https://mesto.nomoreparties.co/v1/cohort-40';
-//const BASE_URL = 'http://localhost:3000';
+//export const BASE_URL = 'http://localhost:3000';
 
 const getResponse = (res) => {
     if (res.ok) {

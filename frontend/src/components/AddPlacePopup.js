@@ -52,7 +52,7 @@ export default function AddPlacePopup(props) {
                         id="place-input-error"
                     />
                     <input
-                        className="popup__error"
+                        className="popup__input"
                         id="link-input"
                         type="url"
                         name="linkInput"
