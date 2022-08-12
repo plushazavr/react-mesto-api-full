@@ -108,7 +108,6 @@ class Api {
 const api = new Api({
 baseUrl: 'https://api.kazantseva.nomoredomains.sbs/',
 headers: {
-    //authorization: '9e2d1a56-de8f-4b7e-b67f-fb6ac953a442',
     'Content-Type': 'application/json'
 }
 });
