@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.kazantseva.nomoredomains.sbs/';
+export const BASE_URL = 'https://api.kazantseva.nomoredomains.sbs';
 
 const checkResponse = (response) => {
     if (response.ok) {

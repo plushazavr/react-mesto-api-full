@@ -106,7 +106,7 @@ class Api {
 }
 
 const api = new Api({
-baseUrl: 'https://api.kazantseva.nomoredomains.sbs/',
+baseUrl: 'https://api.kazantseva.nomoredomains.sbs',
 headers: {
     'Content-Type': 'application/json'
 }
