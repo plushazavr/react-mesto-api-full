@@ -1,49 +1,60 @@
-export const BASE_URL = 'https://api.kazantseva.nomoredomains.sbs/';
+export const BASE_URL = 'https://api.kazantseva.nomoredomains.sbs';
+//const BASE_URL = 'https://mesto.nomoreparties.co/v1/cohort-40';
+//const BASE_URL = 'http://localhost:3000';
 
-const checkResponse = (response) => {
-    if (response.ok) {
-        return response.json()
+const getResponse = (res) => {
+    if (res.ok) {
+        return(res.json());
+    } else {
+        return res.json()
+            .then((err) => {
+                throw new Error(err.message);
+            })
     }
-    return Promise.reject(`Ошибка: ${response.status}`);
-}
+};
 
-export const register = ({email, password}) => {
+export const register = ({ email, password }) => {
     return fetch(`${BASE_URL}/signup`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({email, password})
+        body: JSON.stringify({ password, email }),
+        credentials: 'include',
     })
-        .then(checkResponse)
+        .then(getResponse)
 };
 
-
-export const authorize = ({email, password}) => {
+export const login = ({ email, password }) => {
     return fetch(`${BASE_URL}/signin`, {
         method: 'POST',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
-        body: JSON.stringify({email, password})
+        body: JSON.stringify({ password, email }),
+        credentials: 'include',
     })
-        .then(checkResponse)
+        .then(getResponse)
 };
 
-export const checkToken = (token) => {
-    return fetch(`${BASE_URL}/users/me`, {
+export const logout = () => {
+    return fetch(`${BASE_URL}/logout`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        credentials: 'include',
+    })
+        .then(getResponse)
+};
+
+export const cookiesCheck = () => {
+    return fetch(`${BASE_URL}/check`, {
         method: 'GET',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            "Content-Type": "application/json",
         },
+        credentials: 'include',
     })
-    .then(response => {
-      if (response.status === 200) {
-          return response.json()
-      }
-  })
-  .then(response => response)
-}
+      .then(getResponse)
+};

@@ -1,67 +1,80 @@
-import {useContext, useEffect, useState} from 'react';
-import PopupWithForm from "./PopupWithForm";
-import {CurrentUserContext} from "../contexts/CurrentUserContext";
+import React from 'react';
+import PopupWithForm from "./PopupWithForm.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js"
 
-function EditProfilePopup(props) {
-  const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
+export default function EditProfilePopup(props) {
+    const currentUser = React.useContext(CurrentUserContext);
+    const [ name, setName ] = React.useState('');
+    const [ description, setDescription ] = React.useState('');
 
-  useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [props.isOpen, currentUser]);
 
-  const handleNameChange = (evt) => {
-    setName(evt.target.value);
-  }
-  const handleDescriptionChange = (evt) => {
-    setDescription(evt.target.value);
-  }
+    React.useEffect(() => {
+        if (currentUser.name || currentUser.description) {
+            setName(currentUser.name);
+            setDescription(currentUser.about);
+        }
+    }, [currentUser]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    props.onUpdateUser({
-      name: name,
-      about: description
-    });
-  }
+    function handleChangeName(evt) {
+        setName(evt.target.value);
+    }
 
-  return (
-    <PopupWithForm
-      name='edit'
-      title='Редактировать профиль'
-      buttonText={props.buttonText}
-      isOpen={props.isOpen}
-      onSubmit={handleSubmit}
-      onClose={props.onClose}
-    >
-      <input className="popup__input"
-        id='popup-name'
-        maxLength="40" minLength="2"
-        name="name"
-        type="text"
-        placeholder='Имя'
-        required
-        onChange={handleNameChange}
-        value={ name || ''}
-      />
-      <p className="popup__error" id="popup-name-error"/>
-      <input
-        className="popup__input"
-        id='popup-about'
-        maxLength="200" minLength="2"
-        name="about"
-        type="text"
-        placeholder='Описание'
-        required
-        value={ description || ''}
-        onChange={handleDescriptionChange}
-      />
-      <p className="popup__error" id="popup-about-error"/>
-    </PopupWithForm>
-  )
+    function handleChangeDescription(evt) {
+        setDescription(evt.target.value);
+    }
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        props.onUpdateUser({
+            name,
+            about: description,
+        });
+    }
+
+    return (
+        <PopupWithForm
+            name="edit-profile"
+            title="Редактировать профиль"
+            buttonText={props.isLoading ? "Сохранение..." : "Сохранить"}
+            isOpen={props.isOpen}
+            onClose={props.onClose}
+            onSubmit={handleSubmit}
+            children={
+                <>
+                    <input
+                        className="popup__input"
+                        id="name-input"
+                        type="text"
+                        name="nameInput"
+                        placeholder="Имя"
+                        minLength="2"
+                        maxLength="40"
+                        required
+                        value={name}
+                        onChange={handleChangeName}
+                    />
+                    <span
+                        className="popup__error"
+                        id="name-input-error"
+                    />
+                    <input
+                        className="popup__input"
+                        id="about-input"
+                        type="text"
+                        name="aboutInput"
+                        placeholder="О себе"
+                        minLength="2"
+                        maxLength="200"
+                        required
+                        value={description}
+                        onChange={handleChangeDescription}
+                    />
+                    <span
+                        className="popup__error"
+                        id="about-input-error"
+                    />
+                </>
+            }
+        />
+    )
 }
-
-export default EditProfilePopup;
-

@@ -1,12 +1,10 @@
-import React from 'react'
+import React from 'react';
 const currentDate = new Date().getFullYear();
 
-function Footer() {
+export default function Footer(props) {
     return (
-      <footer className="footer">
-        <p className="footer__copyright">&copy; {currentDate}. React-Mesto-Auth, Russia</p>
-      </footer>
+        <footer className="footer">
+            {props.loggedIn && <p className="footer__copyright">&copy; {currentDate}</p>}
+        </footer>
     );
 }
-
-export default Footer;
