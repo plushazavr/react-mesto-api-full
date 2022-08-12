@@ -1,26 +1,40 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const { celebrate, Joi, errors } = require('celebrate');
-const auth = require('./middlewares/auth');
-const cors = require('./middlewares/cors');
-const NotFoundError = require('./errors/NotFoundError');
+const cookieParser = require('cookie-parser');
+const router = require('./routes/index');
+const { celebrateErrorHandler } = require('./middlewares/celebrate-errors-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { login, createUser } = require('./controllers/users');
-const regex = require('./utils/constants');
-const routes = require('./routes/index');
 
 const { PORT = 3000 } = process.env;
-
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/mestodb');
+app.use(cors({
+  origin: [
+    'https://kazantseva.nomoredomains.sbs',
+    'http://kazantseva.nomoredomains.sbs',
+    'https://api.kazantseva.nomoredomains.sbs',
+    'http://api.kazantseva.nomoredomains.sbs',
+    'https://www.api.kazantseva.nomoredomains.sbs',
+    'http://www.api.kazantseva.nomoredomains.sbs',
+    'http://localhost:3000',
+    'https://localhost:3000',
+    'http://localhost:3001',
+    'https://localhost:3001',
+  ],
+  credentials: true,
+}));
 
-app.use(cors);
+mongoose.connect('mongodb://localhost:27017/mestodb', {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
 
+app.use(cookieParser());
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
@@ -31,46 +45,15 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  }),
-}), login);
-
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: Joi.string().regex(regex),
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  }),
-}), createUser);
-
-app.use(routes);
-
-app.use(auth, (req, res, next) => {
-  next(new NotFoundError('Запрашиваемой страницы не существует'));
-});
+app.use('/', router);
 
 app.use(errorLogger);
-
-app.use(errors());
+app.use(celebrateErrorHandler);
 
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
-  res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message,
-    });
+  res.status(statusCode).send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
   next();
 });
 
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`App listening on port ${PORT}`);
-});
+app.listen(PORT, () => {});

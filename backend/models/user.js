@@ -1,57 +1,57 @@
-const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-const { isEmail } = require('validator');
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
+const { UnauthorizedError } = require('../errors/401_unauthorized-error');
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    minLength: [2, 'Минимальное количество букв в имени - 2'],
-    maxLength: [30, 'Минимальное количество букв в имени - 30'],
+    minlength: [2, 'Имя не может быть короче 2-х символов'],
+    maxlength: [30, 'Имя не может быть длинее 30-ти символов'],
     default: 'Жак-Ив Кусто',
   },
   about: {
     type: String,
-    minLength: [2, 'Минимальное количество букв в описании - 2'],
-    maxLength: [30, 'Минимальное количество букв в описании - 30'],
+    minlength: [2, 'Описание не может быть короче 2-х символов'],
+    maxlength: [30, 'Описание не может быть длинее 30-ти символов'],
     default: 'Исследователь',
   },
   avatar: {
     type: String,
     default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
     validate: {
-      validator(v) {
-        return /^(https?:\/\/)?([\w-]{1,32}\.[\w-]{1,32})[^\s@]*/gm.test(v);
-      },
-      message: 'Неправильный формат ссылки',
+      validator: (v) => /https?:\/\/(www\.)?([-\w.:])+([-\w._~:/?#[\]@!$&'()*+,;=])*/ig.test(v),
+      message: 'URL должен быть валидным',
     },
   },
   email: {
     type: String,
-    required: [true, 'Поле email  должно быть заполнено'],
+    required: [true, 'Email обязателен для заполнения'],
     unique: true,
     validate: {
-      validator: (v) => isEmail(v),
-      message: 'Некорректный адрес почты',
+      validator: (email) => validator.isEmail(email),
+      message: 'Email должен быть валидным',
     },
   },
   password: {
     type: String,
-    required: [true, 'Поле пароль должно быть заполнено'],
+    required: [true, 'Пароль обязателен для заполнения'],
     select: false,
   },
-}, { versionKey: false });
+}, {
+  versionKey: false,
+});
 
-// eslint-disable-next-line func-names
 userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        return Promise.reject(new Error('Неправильные почта или пароль'));
+        return Promise.reject(new UnauthorizedError('Неверные почта или пароль'));
       }
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            return Promise.reject(new Error('Неправильные почта или пароль'));
+            return Promise.reject(new UnauthorizedError('Неверные почта или пароль'));
           }
           return user;
         });

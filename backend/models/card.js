@@ -1,40 +1,36 @@
 const mongoose = require('mongoose');
-const { isURL } = require('validator');
 
-const cardSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: [true, 'Поле название должно быть заполнено'],
-      minLength: [2, 'Минимальное количество букв в названии - 2'],
-      maxLength: [30, 'Минимальное количество букв в названии - 30'],
-    },
-    link: {
-      type: String,
-      required: [true, 'Добавьте URL карточки'],
-      validate: {
-        validator: (v) => isURL(v),
-        message: 'Некорректный адрес URL',
-      },
-    },
-    owner: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'user',
-      required: true,
-    },
-    likes: {
-      type: {
-        type: [mongoose.Schema.Types.ObjectId],
-        default: [],
-      },
-      default: [],
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
+const cardSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, 'Название обязательно для заполнения'],
+    minlength: [2, 'Название не может быть короче 2-х символов'],
+    maxlength: [30, 'Название не может быть длинее 30-ти символов'],
+  },
+  link: {
+    type: String,
+    required: [true, 'Ссылка на изображение обязательна'],
+    validate: {
+      validator: (v) => /https?:\/\/(www\.)?([-\w.:])+([-\w._~:/?#[\]@!$&'()*+,;=])*/ig.test(v),
+      message: 'URL должен быть валидным',
     },
   },
-  { versionKey: false },
-);
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+  },
+  likes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    default: [],
+  }],
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
+}, {
+  versionKey: false,
+});
 
 module.exports = mongoose.model('card', cardSchema);
