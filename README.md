@@ -7,6 +7,7 @@ Frontend https://kazantseva.nomoredomains.sbs
 
 Backend https://api.kazantseva.nomoredomains.sbs
 
+<<<<<<< HEAD
 Если лень регистрироваться: 
 
 Логин: 
@@ -16,3 +17,8 @@ Backend https://api.kazantseva.nomoredomains.sbs
 Пароль:
 
     11111111
+=======
+    Логин 1111@mail.com 
+
+    Пароль 11111111
+>>>>>>> 27b417eea0055cd47e4f6439d53716ac1eb952c4
