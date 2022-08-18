@@ -15,7 +15,3 @@
 * Продвинутая семантика языка **HTML**
 * Файловая структура по **БЭМ Nested**
 * Работа с макетом в **Figma**
-***
-### Ссылки:
-* [Проектная работа на GitHub Pages](https://zyoma689.github.io/react-mesto-auth)
-* [Макет Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
