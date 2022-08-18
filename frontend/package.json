@@ -1,6 +1,6 @@
 {
   "name": "mesto-frontend",
-  "version": "0.1.0",  
+  "version": "0.1.0",
   "private": true,
   "homepage": "http://localhost:3000",
   "dependencies": {
@@ -8,7 +8,7 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.6.3",
     "chokidar": "^3.5.3",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.6.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
@@ -22,7 +22,6 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "npm run build && scp -r ./build/* kazantseva@62.84.126.26:/home/kazantseva/react-mesto-api-full/build"
-  
   },
   "eslintConfig": {
     "extends": [
