@@ -7,7 +7,7 @@ const { NotFoundError } = require('../errors/404_not-found-error');
 const { ConflictError } = require('../errors/409_conflict-error');
 const { UnauthorizedError } = require('../errors/401_unauthorized-error');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { NODE_ENV, JWT_SECRET = 'dev-secret' } = process.env;
 
 const getUsers = (req, res, next) => {
   User.find({})
